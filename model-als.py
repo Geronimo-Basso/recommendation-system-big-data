@@ -128,7 +128,8 @@ def train_recommender(df_ratings, df_valoraciones_ep, df_anime, user_id=666666):
     rmse = evaluator.evaluate(predictions)
     print(f"Root-mean-square error (RMSE) = {rmse}")
 
-    user_recs = model.recommendForAllUsers(30)
+    target_user_df = spark.createDataFrame([(user_id,)], ["user_id"])
+    user_recs = model.recommendForUserSubset(target_user_df, 30)
 
     ep_recs = user_recs.filter(col("user_id") == user_id).select("recommendations").collect()
 
