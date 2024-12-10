@@ -196,5 +196,5 @@ def basic_eda(df, dataframe_name):
 
 if __name__ == '__main__':
     eda_df_anime()
-    #eda_rating_complete()
+    eda_rating_complete()
     spark.stop()
