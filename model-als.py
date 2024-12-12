@@ -122,8 +122,8 @@ def train_recommender(df_ratings, df_valoraciones_ep, df_anime, user_id=666666):
     (train, test) = combined_ratings.randomSplit([0.8, 0.2], seed=42)
 
     model = als.fit(train)
-    predictions = model.transform(test)
 
+    predictions = model.transform(test)
     evaluator = RegressionEvaluator(metricName="rmse", labelCol="rating", predictionCol="prediction")
     rmse = evaluator.evaluate(predictions)
     print(f"Root-mean-square error (RMSE) = {rmse}")
@@ -140,7 +140,7 @@ def train_recommender(df_ratings, df_valoraciones_ep, df_anime, user_id=666666):
 
     recs_with_info = recommendations_df.join(df_anime, recommendations_df.anime_id == df_anime.ID, how="left") \
         .select(df_anime.ID, df_anime.Name, df_anime["English name"],
-                df_anime.Type, recommendations_df .predicted_rating)
+                df_anime.Type, recommendations_df.predicted_rating)
 
     avg_ratings = df_ratings.groupBy("anime_id").avg("rating").withColumnRenamed("avg(rating)", "avg_rating")
 
